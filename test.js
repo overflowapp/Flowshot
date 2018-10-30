@@ -1,4 +1,7 @@
 import test from 'ava';
+import React from 'react';
+import render from 'react-test-renderer';
+import Content from './src/components/Content.tsx';
 
 test('Has Manifest props', t => {
     const manifest = require('./plugin/manifest.json');
@@ -11,4 +14,9 @@ test('Has Manifest props', t => {
     }, true);
 
     hasProps ? t.pass() : t.fail();
+});
+
+test('Content component', t => {
+    const tree = render.create(<Content />).toJSON();
+    t.snapshot(tree);
 });

@@ -7,6 +7,8 @@
     "test": "ava -v"
   },
   "dependencies": {
+    "@ava/babel-preset-stage-4": "^1.0.0",
+		"babel-preset-react": "^6.22.0",
     "ava": "^0.25.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
@@ -22,5 +24,17 @@
     "webpack-cli": "^3.1.2"
   },
   "repository": "https://github.com/overflowapp/Flowshot.git",
-  "license": "MIT"
+  "license": "MIT",
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "@ava/stage-4",
+      "react"
+    ]
+  }
 }

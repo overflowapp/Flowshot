@@ -4,7 +4,7 @@ interface AppProps {}
 
 interface AppState {}
 
-export default class Popup extends React.Component<AppProps, AppState> {
+export default class Content extends React.Component<AppProps, AppState> {
     render() {
         return <p>Flowshot popup</p>;
     }
