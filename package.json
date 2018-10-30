@@ -1,0 +1,13 @@
+{
+  "name": "flowshot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/overflowapp/Flowshot.git",
+  "license": "MIT",
+  "scripts": {
+    "test": "ava -v"
+  },
+  "dependencies": {
+    "ava": "^0.25.0"
+  }
+}
