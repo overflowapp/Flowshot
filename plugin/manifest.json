@@ -9,7 +9,7 @@
   },
   "background": {
       "scripts": [
-          "dist/eventPage.js"
+          "js/eventPage.js"
       ],
       "persistent": true
   },
@@ -25,12 +25,12 @@
               "https://*/*"
           ],
           "js": [
-              "dist/contentScript.js"
+              "js/contentScript.js"
           ]
       }
   ],
   "web_accessible_resources": [
-      "dist/clientScript.js"
+      "js/clientScript.js"
   ],
   "permissions": [
       "<all_urls>",

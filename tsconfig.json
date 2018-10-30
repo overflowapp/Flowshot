@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "rootDir": "src",
+        "outDir": "dist/js",
+        "sourceMap": true,
+        "jsx": "react",
+        "lib": [
+            "es7",
+            "dom"
+        ],
+        "experimentalDecorators": true
+    }
+}
