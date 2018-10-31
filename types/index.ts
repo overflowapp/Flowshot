@@ -1,5 +1,15 @@
 import EventBus from '../src/EventBus';
 
+export interface Screenshot {
+    title: string;
+    date: number;
+    dataURI: string;
+    bounds: {
+        h: number;
+        w: number;
+    };
+}
+
 export interface Session {
     date: number;
     data: SessionData[];
@@ -32,7 +42,7 @@ export interface SessionData {
 }
 
 export interface Recording {
-    status: RecordingStatus;
+    status: SessionStatus;
     events: RecordingEvent[];
 }
 
@@ -47,7 +57,7 @@ export interface RecordingEvent {
     };
 }
 
-export enum RecordingStatus {
+export enum SessionStatus {
     'stopped' = 0,
     'started' = 1,
     'discarded' = 2,
@@ -62,4 +72,8 @@ declare global {
     interface Window {
         FlowshotEvents: EventBus;
     }
+}
+
+export enum RequestType {
+    'NEW_IMAGE' = 0,
 }

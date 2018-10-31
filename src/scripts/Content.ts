@@ -1,3 +1,3 @@
-import { RecordingStatus } from '../../types';
+import { SessionStatus } from '../../types';
 
 class Content {}
