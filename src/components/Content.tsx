@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SessionStatus, Screenshot, RequestType } from '../../types';
+import { SessionStatus, Screenshot, RequestType } from '../types';
 
 interface AppProps {}
 

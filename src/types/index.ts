@@ -1,4 +1,4 @@
-import EventBus from '../src/EventBus';
+import EventBus from '../EventBus';
 
 export interface Screenshot {
     title: string;

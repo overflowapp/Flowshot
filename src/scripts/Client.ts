@@ -1,5 +1,5 @@
 import EventBus from '../EventBus';
-import { SessionStatus } from '../../types';
+import { SessionStatus } from '../types';
 
 class Client {
     constructor() {

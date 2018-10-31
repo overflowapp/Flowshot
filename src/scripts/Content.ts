@@ -1,4 +1,4 @@
-import { SessionStatus } from '../../types';
+import { SessionStatus } from '../types';
 
 class Content {
     static runStatus() {

@@ -1,5 +1,5 @@
 import FileManager from './FileManager';
-import { SessionData, ChromeTabStatus, SessionStatus, Session } from '../../types';
+import { SessionData, ChromeTabStatus, SessionStatus, Session } from '../types';
 import TabHelper from '../utils/TabHelper';
 
 class Background {

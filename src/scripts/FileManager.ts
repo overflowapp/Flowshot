@@ -1,5 +1,5 @@
 const JSZip = require('jszip');
-import { SessionData } from '../../types';
+import { SessionData } from '../types';
 import Helpers from '../utils/Helpers';
 
 export default class FileManager {
