@@ -4,52 +4,35 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
-    "test": "ava -v",
+    "test": "jest",
     "test:watch": "ava -w"
   },
   "dependencies": {
-    "@ava/babel-preset-stage-4": "^1.0.0",
-    "@types/node": "^10.12.1",
-    "ava": "^1.0.0-beta.8",
     "cuid": "^2.1.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.75",
+    "@types/enzyme": "^3.1.14",
+    "@types/enzyme-adapter-react-16": "^1.0.3",
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.1",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
     "@types/react-test-renderer": "^16.0.3",
     "@types/sinon-chrome": "^2.2.4",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
-    "jsdom": "^13.0.0",
-    "jsdom-global": "^3.0.2",
-    "react-test-renderer": "^16.6.0",
+    "enzyme-to-json": "^3.3.4",
+    "jest": "^23.6.0",
     "sinon-chrome": "^2.3.2",
+    "ts-jest": "^23.10.4",
     "ts-loader": "^5.2.2",
-    "ts-node": "^7.0.1",
     "typescript": "^3.1.4",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
   },
   "repository": "https://github.com/overflowapp/Flowshot.git",
-  "license": "MIT",
-  "ava": {
-    "files": "tests/*.{ts,tsx}",
-    "extensions": [
-      "ts",
-      "tsx"
-    ],
-    "babel": false,
-    "require": [
-      "ts-node/register"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "@ava/stage-4",
-      "react"
-    ]
-  }
+  "license": "MIT"
 }
