@@ -1,9 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Content pass snapshot 1`] = `
-<Fragment>
+<Content>
   <Component
     sessionStatus={0}
-  />
-</Fragment>
+  >
+    <Description
+      content="Start off your session and continue browsing the web. When done, end your session and download your Overflow file."
+      title="Let's get started."
+    >
+      <div
+        className="ph6 pt2 text-left"
+      >
+        <h2>
+          Let's get started.
+        </h2>
+        <p
+          className="mb6"
+        >
+          Start off your session and continue browsing the web. When done, end your session and download your Overflow file.
+        </p>
+      </div>
+    </Description>
+    <Actions>
+      <div
+        className="pb5 ph6 flex flex-noshrink mtauto"
+      >
+        <a
+          className="button green flex-grow"
+          onClick={[Function]}
+        >
+          Begin new session
+        </a>
+      </div>
+    </Actions>
+  </Component>
+</Content>
 `;
