@@ -1,6 +1,5 @@
 # App Specific
-test.js.md
-test.js.snap
+tests/snapshots
 
 # Logs
 logs
