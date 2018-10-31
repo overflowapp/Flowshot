@@ -69,3 +69,5 @@ class Content {
         chrome.runtime.sendMessage(payload);
     }
 }
+
+Content.listenToRequest();

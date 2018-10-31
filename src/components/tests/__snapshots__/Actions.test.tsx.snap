@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Actions pass snapshot 1`] = `
+<div
+  className="pb5 ph6 flex flex-noshrink mtauto"
+>
+  <a
+    className="button"
+  >
+    Begin new session
+  </a>
+</div>
+`;

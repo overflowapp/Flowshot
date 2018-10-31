@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Content pass snapshot 1`] = `
-<p>
-  Flowshot popup
-</p>
+<Fragment>
+  <Component
+    sessionStatus={0}
+  />
+</Fragment>
 `;

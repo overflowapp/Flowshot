@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Description pass snapshot 1`] = `
+<div
+  className="ph6 pt2 text-left"
+>
+  <h2
+    className="begin"
+  >
+    Begin session
+  </h2>
+  <p
+    className="mb6"
+  >
+    Start off your session
+  </p>
+</div>
+`;

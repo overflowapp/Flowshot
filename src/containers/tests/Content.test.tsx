@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import Content from './Content';
-import { SessionStatus } from '../types';
+import Content from '../Content';
+import { SessionStatus } from '../../types';
 
 describe('Content', function() {
     it('should have a stopped session status', function() {
