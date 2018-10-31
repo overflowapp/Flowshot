@@ -15,11 +15,18 @@ describe('Manifest', function() {
     });
 });
 
-describe('Cuid', function() {
+describe('Helpers', function() {
     it('should output only unique ids', function() {
         const totalArrayLength = 200;
         const ids = Array.from({ length: totalArrayLength }, _ => Helpers.genId());
         const filteredIds = ids.filter((id, i) => ids.indexOf(id) == i);
         expect(filteredIds.length).toBe(totalArrayLength);
+    });
+
+    it('should convert png data to blob', function() {
+        const pixelUri =
+            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAA/wEEAQB5fl4xAAAAAElFTkSuQmCC';
+        const blob = Helpers.uriToBlob(pixelUri);
+        expect(blob instanceof Blob).toBe(true);
     });
 });

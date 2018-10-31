@@ -1,4 +1,4 @@
-export default class Utils {
+export default class TabHelper {
     static getCurrentTab(): Promise<chrome.tabs.Tab> {
         return new Promise(resolve => {
             chrome.tabs.query(
