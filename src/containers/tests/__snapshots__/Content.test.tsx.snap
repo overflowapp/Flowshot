@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Content pass snapshot 1`] = `
+<Content>
+  <Component>
+    <SessionDiscarded
+      setRecordingState={[Function]}
+    >
+      <Description
+        content="The session has been discarded. Click & website tracked has stopped until a new session has been initiated."
+        title="Session discarded."
+      >
+        <div
+          className="ph6 pt2 text-left"
+        >
+          <h2>
+            Session discarded.
+          </h2>
+          <p
+            className="mb6"
+          >
+            The session has been discarded. Click & website tracked has stopped until a new session has been initiated.
+          </p>
+        </div>
+      </Description>
+      <Actions>
+        <div
+          className="pb5 ph6 flex flex-noshrink mtauto"
+        >
+          <a
+            className="button black flex-grow"
+            onClick={[Function]}
+          >
+            Start Over
+          </a>
+        </div>
+      </Actions>
+    </SessionDiscarded>
+  </Component>
+</Content>
+`;

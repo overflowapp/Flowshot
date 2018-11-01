@@ -41,6 +41,8 @@ class Background {
     }
 
     static saveEvent(clickEvent: SessionData['click']) {
+        console.log('saving event');
+
         Background.captureCurrentTab().then(payload => {
             const sessionData: SessionData = {
                 date: Date.now(),
@@ -107,6 +109,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
     if (changeInfo.status === ChromeTabStatus.complete) {
         console.log('Injecting script into', tab.title);
-        TabHelper.executeScript(tabId, { file: 'js/ .js' });
+        TabHelper.executeScript(tabId, { file: 'js/client.js' });
     }
 });
