@@ -1,5 +1,5 @@
 import FileManager from './FileManager';
-import { SessionData, ChromeTabStatus, SessionStatus, Session } from '../types';
+import { SessionData, ChromeTabStatus, SessionStatus, Session, RequestType } from '../types';
 import TabHelper from '../utils/TabHelper';
 
 class Background {
@@ -51,11 +51,11 @@ class Background {
             };
 
             Background.currentSession.data.push(sessionData);
-            Background.sendToPopup('newImage', payload);
+            Background.sendToPopup(RequestType.NEW_IMAGE, payload);
         });
     }
 
-    static sendToPopup(type: string, payload: any) {
+    static sendToPopup(type: RequestType, payload: any) {
         chrome.runtime.sendMessage({ type, payload });
     }
 
@@ -112,3 +112,5 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         TabHelper.executeScript(tabId, { file: 'js/client.js' });
     }
 });
+
+export default Background;

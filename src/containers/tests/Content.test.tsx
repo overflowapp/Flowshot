@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import Content from '../Content';
-import { SessionStatus } from '../../types';
-import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
 import * as chrome from 'sinon-chrome';
+import Content from '../Content';
+import { SessionStatus, RequestType } from '../../types';
+import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
+import Background from '../../scripts/Background';
 
 describe('Content', function() {
     const MountedContent = mount(<Content />);
@@ -28,6 +29,50 @@ describe('Content', function() {
         expect((MountedContent.state('screenshots') as []).length).toBe(0);
     });
 
+    it.skip('should update recording state', function() {
+        (MountedContent.instance() as Content).setRecordingState(SessionStatus.started);
+        expect(MountedContent.state('status')).toBe(SessionStatus.started);
+    });
+
+    it('pass snapshot', function() {
+        expect(MountedContent).toMatchSnapshot();
+    });
+});
+
+describe('Content Chrome', function() {
+    const MountedContent = mount(<Content />);
+    const type = RequestType.NEW_IMAGE;
+    const payload = {
+        dataURI: 'some-data-uri',
+        dimensions: {
+            w: 100,
+            h: 100,
+        },
+    };
+
+    beforeEach(function() {
+        chrome.runtime.sendMessage.flush();
+        chrome.flush();
+    });
+
+    it('should retrieve message from Background', function() {
+        expect(chrome.runtime.sendMessage.notCalled).toBe(true);
+        expect(chrome.runtime.onMessage.addListener.notCalled).toBe(true);
+
+        Background.sendToPopup(type, payload);
+
+        expect(chrome.runtime.sendMessage.calledOnceWithExactly({ type, payload })).toBe(true);
+
+        (MountedContent.instance() as Content).listen();
+
+        expect(chrome.runtime.onMessage.addListener.calledOnce).toBe(true);
+
+        chrome.runtime.onMessage.dispatch({ type, payload });
+
+        expect((MountedContent.state('screenshots') as []).length).toBe(1);
+        expect(((MountedContent.state('screenshots') as []).pop() as any).bounds).toEqual(payload.dimensions);
+    });
+
     it('should pull state from local storage', function() {
         chrome.storage.local.get.withArgs(['recordingState']).yields({ recordingState: SessionStatus.started });
 
@@ -42,14 +87,5 @@ describe('Content', function() {
 
         (MountedContent.instance() as Content).setFromLocalState();
         expect(MountedContent.state('status')).toBe(initialStatus);
-    });
-
-    it.skip('should update recording state', function() {
-        (MountedContent.instance() as Content).setRecordingState(SessionStatus.started);
-        expect(MountedContent.state('status')).toBe(SessionStatus.started);
-    });
-
-    it('pass snapshot', function() {
-        expect(MountedContent).toMatchSnapshot();
     });
 });
