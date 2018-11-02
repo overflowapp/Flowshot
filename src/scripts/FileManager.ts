@@ -1,11 +1,12 @@
 const JSZip = require('jszip');
+import * as cuid from 'cuid';
 import { SessionData } from '../types';
 import Helpers from '../utils/Helpers';
 
 export default class FileManager {
-    private static get structure() {
+    public static get structure() {
         return {
-            title: `Flowshot-${Date.now()}`,
+            title: `Flowshot-${cuid.slug()}`,
             date: Date.now(),
             imageDir: 'assets',
             screens: [],
