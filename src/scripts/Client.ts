@@ -1,5 +1,5 @@
 import EventBus from '../EventBus';
-import { SessionStatus } from '../types';
+import { SessionState, ClickData } from '../types/types';
 
 class Client {
     constructor() {
@@ -17,9 +17,9 @@ class Client {
 
     runStatus() {
         chrome.storage.local.get(['recordingState'], result => {
-            const state = result.recordingState as SessionStatus;
+            const state = result.recordingState as SessionState;
 
-            if (state === SessionStatus.started) {
+            if (state === SessionState.started) {
                 this.handleMessage({ startRecording: true });
             }
         });

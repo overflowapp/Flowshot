@@ -9,7 +9,7 @@ export default class FileManager {
         return {
             document: {
                 id: cuid(),
-                name: 'Flow Document',
+                name: 'Flowshot',
                 type: Flow.Type.Document,
                 children: [
                     {
@@ -44,55 +44,76 @@ export default class FileManager {
         };
     }
 
+    private static readonly exportSettings = {
+        assetFolder: 'assets',
+        imageExt: 'png',
+        screenSpacing: 200,
+    };
+
     public static zipFiles(files: Shot[]) {
-        console.log('Zipping files');
+        console.log(`Zipping ${files.length} files`);
         const zip = new JSZip();
-        const baseSructure = { ...FileManager.structure };
+        const struct = { ...FileManager.flowStructure };
+        const page = struct.document.children[0];
+        const settings = { ...FileManager.exportSettings };
+        let cumulativePosition = { x: 0, y: 0 };
 
-        zip.folder(baseSructure.imageDir);
+        zip.folder(settings.assetFolder);
 
-        files.forEach((data: Shot, i: number) => {
-            const newScreenId = Helpers.genId();
-            const imageName = `${newScreenId}.png`;
+        files.forEach((data: Shot) => {
+            const newScreenId = cuid();
+            const imageName = `${newScreenId}.${settings.imageExt}`;
             const { x, y, w, h } = data.event.payload.boundingRect;
 
-            zip.file(`${baseSructure.imageDir}/${imageName}`, Helpers.uriToBlob(data.tab.dataURI));
+            zip.file(`${settings.assetFolder}/${imageName}`, Helpers.uriToBlob(data.tab.dataURI));
 
-            baseSructure.screens.push({
-                id: newScreenId,
-                title: `${data.tab.title} - ${Date.now()}`,
-                source: imageName,
-                size: { ...data.tab.size },
+            const hotspot = {
+                id: cuid(),
+                name: null,
+                type: Flow.Type.Hotspot,
                 position: {
-                    x: 0,
-                    y: 0,
+                    x: x * 2,
+                    y: y * 2,
                 },
-                area: {
-                    id: Helpers.genId(),
-                    position: {
-                        x: x * 2,
-                        y: y * 2,
-                    },
-                    size: {
-                        h: h * 2,
-                        w: w * 2,
-                    },
+                size: {
+                    h: h * 2,
+                    w: w * 2,
                 },
+                connections: [],
+            } as Flow.Layer;
+
+            console.log('setting screen id', newScreenId);
+
+            page.children.push({
+                id: newScreenId,
+                name: `${data.tab.title} - ${Date.now()}`,
+                source: {
+                    dirPath: settings.assetFolder,
+                    fileName: imageName,
+                },
+                children: [hotspot],
+                size: { ...data.tab.size },
+                position: { ...cumulativePosition },
+                type: Flow.Type.Screen,
             });
+
+            cumulativePosition.x += data.tab.size.w + settings.screenSpacing;
         });
 
-        baseSructure.screens.forEach((screen, i) => {
-            if (baseSructure.screens[i + 1]) {
-                screen.area.destination = baseSructure.screens[i + 1].id;
-            }
+        page.children.forEach((screen: Flow.Screen, i) => {
+            page.children[i + 1] && console.log('looping children', page.children[i + 1].id);
+            page.children[i + 1] &&
+                screen.children[0].connections.push({
+                    nodeID: page.children[i + 1].id,
+                });
         });
 
-        zip.file('data.json', JSON.stringify(baseSructure));
+        zip.file('data.json', JSON.stringify(struct));
 
         zip.generateAsync({ type: 'blob' }).then(blob => {
             const a = document.createElement('a');
             a.href = window.URL.createObjectURL(blob);
-            a.download = `${baseSructure.title}.flow`;
+            a.download = `${struct.document.name}.flow`;
             a.style.display = 'none';
             document.body.appendChild(a);
             a.click();
