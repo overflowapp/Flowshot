@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Screenshot, RequestType } from '../types';
+import { Screenshot } from '../types';
 import TabHelper from '../utils/TabHelper';
 import { SessionStarted, SessionDiscarded, SessionStopped } from '../components';
-import { SessionState } from '../types/types';
+import { SessionState, RequestType } from '../types/types';
 
 interface AppProps {}
 

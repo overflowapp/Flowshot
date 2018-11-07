@@ -1,11 +1,11 @@
-import { SessionStatus } from '../types';
+import { SessionState } from '../types/types';
 
 class Content {
     static runStatus() {
         chrome.storage.local.get(['recordingState'], result => {
-            const state = result.recordingState as SessionStatus;
+            const state = result.recordingState as SessionState;
 
-            if (state === SessionStatus.started) {
+            if (state === SessionState.started) {
                 this.startRecording();
             }
         });
@@ -24,10 +24,10 @@ class Content {
         console.log('Handling request', request);
 
         switch (true) {
-            case request.changeRecordingState && request.recordingState === SessionStatus.started:
+            case request.changeRecordingState && request.recordingState === SessionState.started:
                 Content.startRecording();
                 break;
-            case request.changeRecordingState && request.recordingState === SessionStatus.stopped:
+            case request.changeRecordingState && request.recordingState === SessionState.stopped:
                 Content.stopRecording();
                 break;
         }

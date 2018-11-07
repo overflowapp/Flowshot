@@ -1,7 +1,6 @@
 import FileManager from './FileManager';
-import { RequestType } from '../types';
 import TabHelper from '../utils/TabHelper';
-import { Session, SessionState, TabShot, Shot, ClickData, ChromeTabStatus } from '../types/types';
+import { Session, SessionState, TabShot, Shot, ClickData, ChromeTabStatus, RequestType } from '../types/types';
 
 class Background {
     public static currentSession: Session;

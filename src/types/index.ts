@@ -58,7 +58,3 @@ declare global {
         FlowshotEvents: EventBus;
     }
 }
-
-export enum RequestType {
-    'NEW_IMAGE' = 0,
-}

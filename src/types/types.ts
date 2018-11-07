@@ -48,3 +48,7 @@ export enum SessionState {
     'started' = 1,
     'discarded' = 2,
 }
+
+export enum RequestType {
+    'NEW_IMAGE' = 0,
+}
