@@ -32,7 +32,6 @@ class Client {
 
     handleMessage(payload: any) {
         console.log('Got payload', payload);
-
         switch (true) {
             case payload.startRecording:
                 console.debug('Started recording');
@@ -55,16 +54,10 @@ class Client {
     }
 
     onClick(e: MouseEvent) {
-        console.debug('Click event - ', e);
-        let srcElement = e.srcElement;
         const path = (e as any).path;
-
-        if (path) {
-            srcElement = path.find(e => ['button', 'a'].includes(e.type)) || srcElement;
-        }
-
+        const srcElement = path ? path.find(e => ['button', 'a'].includes(e.type)) : e.srcElement;
         const style = srcElement.getBoundingClientRect();
-        console.debug('style', style);
+
         document.dispatchEvent(
             new CustomEvent('fs-request', {
                 detail: {
