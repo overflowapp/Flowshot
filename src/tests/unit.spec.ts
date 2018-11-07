@@ -1,7 +1,7 @@
 import * as chrome from 'sinon-chrome';
 import Helpers from '../utils/Helpers';
 import TabHelper from '../utils/TabHelper';
-import { TAB_QUERY_ARGS, TAB_QUERY_YIELD } from './fauxData';
+import { TAB_QUERY_ARGS, TAB_QUERY_YIELD, PIXEL_URI } from './fauxData';
 import { equal } from 'assert';
 
 describe('Manifest', function() {
@@ -21,9 +21,7 @@ describe('Manifest', function() {
 
 describe('Helpers', function() {
     it('should convert png data to blob', function() {
-        const pixelUri =
-            'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8AAAAA/wEEAQB5fl4xAAAAAElFTkSuQmCC';
-        const blob = Helpers.uriToBlob(pixelUri);
+        const blob = Helpers.uriToBlob(PIXEL_URI);
         expect(blob instanceof Blob).toBe(true);
     });
 });
