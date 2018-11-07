@@ -1,4 +1,4 @@
-const JSZip = require('jszip');
+import * as JSZip from 'jszip';
 import * as cuid from 'cuid';
 import Helpers from '../utils/Helpers';
 import { Shot } from '../types/types';
@@ -26,11 +26,7 @@ export default class FileManager {
                     },
                 ],
             },
-            settings: {
-                grid: null,
-                snapToGrid: false,
-                snapToObjects: false,
-            },
+            settings: {},
             schemaVersion: 1,
         };
     }
