@@ -2,8 +2,39 @@ const JSZip = require('jszip');
 import * as cuid from 'cuid';
 import Helpers from '../utils/Helpers';
 import { Shot } from '../types/types';
+import Flow from '../../Flow/src/typings/Flow';
 
 export default class FileManager {
+    public static get flowStructure(): Flow.File {
+        return {
+            document: {
+                id: cuid(),
+                name: 'Flow Document',
+                type: Flow.Type.Document,
+                children: [
+                    {
+                        id: cuid(),
+                        name: 'Tab Flow',
+                        type: Flow.Type.Page,
+                        backgroundColor: {
+                            r: 0,
+                            g: 0,
+                            b: 0,
+                            a: 1,
+                        },
+                        children: [],
+                    },
+                ],
+            },
+            settings: {
+                grid: null,
+                snapToGrid: false,
+                snapToObjects: false,
+            },
+            schemaVersion: 1,
+        };
+    }
+
     public static get structure() {
         return {
             title: `Flowshot-${cuid.slug()}`,
