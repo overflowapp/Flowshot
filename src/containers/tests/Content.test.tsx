@@ -2,10 +2,9 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import * as chrome from 'sinon-chrome';
 import Content from '../Content';
-import { RequestType } from '../../types';
 import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
 import Background from '../../scripts/Background';
-import { SessionState } from '../../types/types';
+import { SessionState, RequestType } from '../../types/types';
 
 describe('Content', function() {
     const MountedContent = mount(<Content />);
