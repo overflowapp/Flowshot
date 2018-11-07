@@ -35,15 +35,6 @@ export default class FileManager {
         };
     }
 
-    public static get structure() {
-        return {
-            title: `Flowshot-${cuid.slug()}`,
-            date: Date.now(),
-            imageDir: 'assets',
-            screens: [],
-        };
-    }
-
     private static readonly exportSettings = {
         assetFolder: 'assets',
         imageExt: 'png',
