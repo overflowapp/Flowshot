@@ -1,10 +1,4 @@
-import * as cuid from 'cuid';
-
 export default class Helpers {
-    public static genId() {
-        return cuid();
-    }
-
     public static uriToBlob(dataURI: string) {
         const binary = atob(dataURI.split(',')[1]);
         const array = [];

@@ -28,7 +28,7 @@ export default class TabHelper {
                 currentWindow: true,
             },
             tabs => {
-                chrome.tabs.sendMessage(tabs[0].id, message, callback);
+                TabHelper.sendMessage(tabs[0].id, message, callback);
             }
         );
     }

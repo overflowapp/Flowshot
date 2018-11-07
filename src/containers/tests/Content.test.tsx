@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import * as chrome from 'sinon-chrome';
 import Content from '../Content';
 import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
