@@ -35,9 +35,10 @@ describe('Tab Helpers', function() {
     it('should return first current tab', async function() {
         chrome.tabs.query.withArgs(TAB_QUERY_ARGS).yields(TAB_QUERY_YIELD);
 
+        expect(TabHelper.getCurrentTab()).resolves.toEqual(TAB_QUERY_YIELD[0]);
+
         const tab = await TabHelper.getCurrentTab();
 
-        expect(tab).toEqual(TAB_QUERY_YIELD[0]);
         expect(tab.active).toBeTruthy();
         expect(tab.selected).toBeTruthy();
     });
