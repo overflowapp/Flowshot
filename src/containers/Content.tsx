@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { SessionStatus, Screenshot, RequestType } from '../types';
+import { Screenshot, RequestType } from '../types';
 import TabHelper from '../utils/TabHelper';
 import { SessionStarted, SessionDiscarded, SessionStopped } from '../components';
+import { SessionState } from '../types/types';
 
 interface AppProps {}
 
 interface AppState {
-    status: SessionStatus;
+    status: SessionState;
     screenshots: Screenshot[];
 }
 
 export default class Content extends React.Component<AppProps, AppState> {
     state = {
-        status: SessionStatus.stopped,
+        status: SessionState.stopped,
         screenshots: [],
     };
 
@@ -29,7 +30,7 @@ export default class Content extends React.Component<AppProps, AppState> {
         chrome.storage.local.get(['recordingState'], result => {
             result.recordingState &&
                 this.setState({
-                    status: result.recordingState as SessionStatus,
+                    status: result.recordingState as SessionState,
                 });
         });
     };
@@ -54,11 +55,11 @@ export default class Content extends React.Component<AppProps, AppState> {
         });
     }
 
-    setRecordingState = (status: SessionStatus) => {
+    setRecordingState = (status: SessionState) => {
         TabHelper.getCurrentTab().then(tab => {
             chrome.tabs.sendMessage(tab.id, {
                 changeRecordingState: true,
-                recordingState: status === SessionStatus.started ? SessionStatus.started : SessionStatus.stopped,
+                recordingState: status === SessionState.started ? SessionState.started : SessionState.stopped,
             });
 
             chrome.storage.local.set({ recordingState: status });
@@ -72,11 +73,11 @@ export default class Content extends React.Component<AppProps, AppState> {
 
     PopupContent = () => {
         switch (this.state.status) {
-            case SessionStatus.started:
+            case SessionState.started:
                 return <SessionStarted setRecordingState={this.setRecordingState} />;
-            case SessionStatus.stopped:
+            case SessionState.stopped:
                 return <SessionStopped setRecordingState={this.setRecordingState} />;
-            case SessionStatus.discarded:
+            case SessionState.discarded:
                 return <SessionDiscarded setRecordingState={this.setRecordingState} />;
         }
     };

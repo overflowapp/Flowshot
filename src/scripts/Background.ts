@@ -1,6 +1,7 @@
 import FileManager from './FileManager';
-import { SessionData, ChromeTabStatus, SessionStatus, Session, RequestType } from '../types';
+import { RequestType } from '../types';
 import TabHelper from '../utils/TabHelper';
+import { Session, SessionState, TabShot, Shot, ClickData, ChromeTabStatus } from '../types/types';
 
 class Background {
     public static currentSession: Session;
@@ -8,7 +9,7 @@ class Background {
     private static get baseSession(): Session {
         return {
             date: Date.now(),
-            data: [],
+            shots: [],
         };
     }
 
@@ -25,32 +26,32 @@ class Background {
     }
 
     private static saveSession() {
-        FileManager.zipFiles(Background.currentSession.data);
+        FileManager.zipFiles(Background.currentSession.shots);
     }
 
-    public static handleSessionChange(state: SessionStatus) {
+    public static handleSessionChange(state: SessionState) {
         console.log('Handling session change');
         switch (true) {
-            case state === SessionStatus.started:
+            case state === SessionState.started:
                 Background.newSession();
                 break;
-            case state === SessionStatus.stopped:
+            case state === SessionState.stopped:
                 Background.endSession();
                 break;
         }
     }
 
-    static saveEvent(clickEvent: SessionData['click']) {
+    static saveEvent(clickEvent: ClickData) {
         console.log('saving event');
 
         Background.captureCurrentTab().then(payload => {
-            const sessionData: SessionData = {
+            const shot = {
                 date: Date.now(),
-                screen: payload,
-                click: clickEvent,
-            };
+                tab: payload,
+                event: clickEvent,
+            } as Shot;
 
-            Background.currentSession.data.push(sessionData);
+            Background.currentSession.shots.push(shot);
             Background.sendToPopup(RequestType.NEW_IMAGE, payload);
         });
     }
@@ -59,25 +60,24 @@ class Background {
         chrome.runtime.sendMessage({ type, payload });
     }
 
-    private static captureCurrentTab(): Promise<SessionData['screen']> {
+    private static captureCurrentTab(): Promise<TabShot> {
         return new Promise(resolve => {
             chrome.tabs.captureVisibleTab(null, { format: 'png', quality: 100 }, dataURI => {
                 if (!dataURI) return;
 
                 const fauxImage = new Image();
                 fauxImage.src = dataURI;
-                fauxImage.onload = () => {
+                fauxImage.onload = () =>
                     TabHelper.getCurrentTab().then(tab => {
                         resolve({
-                            tab: tab.title,
+                            title: tab.title,
                             dataURI,
-                            dimensions: {
+                            size: {
                                 h: fauxImage.height,
                                 w: fauxImage.width,
                             },
                         });
                     });
-                };
             });
         });
     }
@@ -94,7 +94,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             console.log('Capturing page');
             break;
         case request.click:
-            Background.saveEvent(request.payload);
+            Background.saveEvent(request as ClickData);
             break;
         case request.recordingState !== undefined:
             Background.handleSessionChange(request.recordingState);

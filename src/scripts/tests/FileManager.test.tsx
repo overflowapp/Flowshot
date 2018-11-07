@@ -1,7 +1,5 @@
 import * as chrome from 'sinon-chrome';
 import * as cuid from 'cuid';
-import { SessionStatus, RequestType } from '../../types';
-import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
 import FileManager from '../FileManager';
 
 describe('File Manager', function() {

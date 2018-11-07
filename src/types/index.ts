@@ -1,4 +1,5 @@
 import EventBus from '../EventBus';
+import { SessionState } from './types';
 
 export interface Screenshot {
     title: string;
@@ -8,11 +9,6 @@ export interface Screenshot {
         h: number;
         w: number;
     };
-}
-
-export interface Session {
-    date: number;
-    data: SessionData[];
 }
 
 export interface SessionData {
@@ -42,7 +38,7 @@ export interface SessionData {
 }
 
 export interface Recording {
-    status: SessionStatus;
+    status: SessionState;
     events: RecordingEvent[];
 }
 
@@ -55,17 +51,6 @@ export interface RecordingEvent {
         clientX: number;
         clientY: number;
     };
-}
-
-export enum SessionStatus {
-    'stopped' = 0,
-    'started' = 1,
-    'discarded' = 2,
-}
-
-export enum ChromeTabStatus {
-    'loading' = 'loading',
-    'complete' = 'complete',
 }
 
 declare global {

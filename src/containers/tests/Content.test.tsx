@@ -2,26 +2,27 @@ import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import * as chrome from 'sinon-chrome';
 import Content from '../Content';
-import { SessionStatus, RequestType } from '../../types';
+import { RequestType } from '../../types';
 import { SessionStarted, SessionStopped, SessionDiscarded } from '../../components';
 import Background from '../../scripts/Background';
+import { SessionState } from '../../types/types';
 
 describe('Content', function() {
     const MountedContent = mount(<Content />);
 
     it('should have a stopped session status', function() {
-        expect(MountedContent.state('status')).toBe(SessionStatus.stopped);
+        expect(MountedContent.state('status')).toBe(SessionState.stopped);
         expect(MountedContent.find(SessionStopped).length).toBe(1);
     });
 
     it('should render single component dependent on status', function() {
-        MountedContent.setState({ status: SessionStatus.started });
+        MountedContent.setState({ status: SessionState.started });
         expect(MountedContent.find(SessionStarted).length).toBe(1);
 
-        MountedContent.setState({ status: SessionStatus.stopped });
+        MountedContent.setState({ status: SessionState.stopped });
         expect(MountedContent.find(SessionStopped).length).toBe(1);
 
-        MountedContent.setState({ status: SessionStatus.discarded });
+        MountedContent.setState({ status: SessionState.discarded });
         expect(MountedContent.find(SessionDiscarded).length).toBe(1);
     });
 
@@ -30,8 +31,8 @@ describe('Content', function() {
     });
 
     it.skip('should update recording state', function() {
-        (MountedContent.instance() as Content).setRecordingState(SessionStatus.started);
-        expect(MountedContent.state('status')).toBe(SessionStatus.started);
+        (MountedContent.instance() as Content).setRecordingState(SessionState.started);
+        expect(MountedContent.state('status')).toBe(SessionState.started);
     });
 
     it('pass snapshot', function() {
@@ -74,10 +75,10 @@ describe('Content Chrome', function() {
     });
 
     it('should pull state from local storage', function() {
-        chrome.storage.local.get.withArgs(['recordingState']).yields({ recordingState: SessionStatus.started });
+        chrome.storage.local.get.withArgs(['recordingState']).yields({ recordingState: SessionState.started });
 
         (MountedContent.instance() as Content).setFromLocalState();
-        expect(MountedContent.state('status')).toBe(SessionStatus.started);
+        expect(MountedContent.state('status')).toBe(SessionState.started);
     });
 
     it('should not set state if local storage empty', function() {

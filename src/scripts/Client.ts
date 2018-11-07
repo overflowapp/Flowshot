@@ -83,7 +83,7 @@ class Client {
                             w: style.width,
                         },
                     },
-                },
+                } as ClickData,
             })
         );
     }

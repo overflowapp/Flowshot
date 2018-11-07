@@ -1,7 +1,7 @@
 const JSZip = require('jszip');
 import * as cuid from 'cuid';
-import { SessionData } from '../types';
 import Helpers from '../utils/Helpers';
+import { Shot } from '../types/types';
 
 export default class FileManager {
     public static get structure() {
@@ -13,23 +13,23 @@ export default class FileManager {
         };
     }
 
-    public static zipFiles(files: SessionData[]) {
+    public static zipFiles(files: Shot[]) {
         console.log('Zipping files');
         const zip = new JSZip();
         const baseSructure = { ...FileManager.structure };
 
         zip.folder(baseSructure.imageDir);
 
-        files.forEach((data: SessionData, i: number) => {
+        files.forEach((data: Shot, i: number) => {
             const newScreenId = Helpers.genId();
             const imageName = `${newScreenId}.png`;
-            zip.file(`${baseSructure.imageDir}/${imageName}`, Helpers.uriToBlob(data.screen.dataURI));
+            zip.file(`${baseSructure.imageDir}/${imageName}`, Helpers.uriToBlob(data.tab.dataURI));
 
             baseSructure.screens.push({
                 id: newScreenId,
-                title: `${data.screen.tab} - ${Date.now()}`,
+                title: `${data.tab.title} - ${Date.now()}`,
                 source: imageName,
-                size: { ...data.screen.dimensions },
+                size: { ...data.tab.size },
                 position: {
                     x: 0,
                     y: 0,
@@ -37,12 +37,12 @@ export default class FileManager {
                 area: {
                     id: Helpers.genId(),
                     position: {
-                        x: data.click.boundingRect.x * 2,
-                        y: data.click.boundingRect.y * 2,
+                        x: data.event.payload.boundingRect.x * 2,
+                        y: data.event.payload.boundingRect.y * 2,
                     },
                     size: {
-                        h: data.click.boundingRect.h * 2,
-                        w: data.click.boundingRect.w * 2,
+                        h: data.event.payload.boundingRect.h * 2,
+                        w: data.event.payload.boundingRect.w * 2,
                     },
                 },
             });
