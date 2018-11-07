@@ -14,7 +14,7 @@ export default class FileManager {
                 children: [
                     {
                         id: cuid(),
-                        name: 'Tab Flow',
+                        name: `Flow ${cuid.slug()}`,
                         type: Flow.Type.Page,
                         backgroundColor: {
                             r: 0,
@@ -44,7 +44,6 @@ export default class FileManager {
         files.forEach((data: Shot) => {
             const newScreenId = cuid();
             const imageName = `${newScreenId}.${settings.imageExt}`;
-            const { x, y, w, h } = data.event.payload.boundingRect;
             const screen = {
                 id: newScreenId,
                 name: `${data.tab.title} - ${cuid.slug()}`,
@@ -58,7 +57,8 @@ export default class FileManager {
                 type: Flow.Type.Screen,
             } as Flow.Screen;
 
-            if (!data.event || data.event !== null) {
+            if (data.event !== null) {
+                const { x, y, w, h } = data.event.payload.boundingRect;
                 screen.children.push({
                     id: cuid(),
                     name: null,

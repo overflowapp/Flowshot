@@ -20,8 +20,7 @@ class Background {
     private static endSession() {
         console.log('Session ended');
         console.log(Background.currentSession);
-        Background.saveEvent(null);
-        Background.saveSession();
+        Background.saveEvent(null).then(Background.saveSession);
     }
 
     private static saveSession() {
@@ -40,10 +39,10 @@ class Background {
         }
     }
 
-    static saveEvent(clickEvent: ClickData) {
+    static async saveEvent(clickEvent: ClickData) {
         console.log('saving event');
 
-        Background.captureCurrentTab().then(payload => {
+        await Background.captureCurrentTab().then(payload => {
             const shot = {
                 date: Date.now(),
                 tab: payload,
