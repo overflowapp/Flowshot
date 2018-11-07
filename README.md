@@ -1,4 +1,4 @@
-# Flowshot [WIP]
+# Flowshot
 
 [![Build Status](https://travis-ci.com/overflowapp/Flowshot.png?branch=master)](https://travis-ci.com/overflowapp/Flowshot)
 <a href="https://codeclimate.com/github/overflowapp/Flowshot/maintainability"><img src="https://api.codeclimate.com/v1/badges/c4cffc3570dddf3eafce/maintainability" /></a>
