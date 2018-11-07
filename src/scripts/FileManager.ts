@@ -35,71 +35,74 @@ export default class FileManager {
         };
     }
 
-    private static readonly exportSettings = {
-        assetFolder: 'assets',
-        imageExt: 'png',
-        screenSpacing: 200,
-    };
-
-    public static zipFiles(files: Shot[]) {
-        console.log(`Zipping ${files.length} files`);
-        const zip = new JSZip();
+    public static buildFile(files: Shot[]): Flow.File {
         const struct = { ...FileManager.flowStructure };
         const page = struct.document.children[0];
         const settings = { ...FileManager.exportSettings };
         let cumulativePosition = { x: 0, y: 0 };
 
-        zip.folder(settings.assetFolder);
-
         files.forEach((data: Shot) => {
             const newScreenId = cuid();
             const imageName = `${newScreenId}.${settings.imageExt}`;
             const { x, y, w, h } = data.event.payload.boundingRect;
-
-            zip.file(`${settings.assetFolder}/${imageName}`, Helpers.uriToBlob(data.tab.dataURI));
-
-            const hotspot = {
-                id: cuid(),
-                name: null,
-                type: Flow.Type.Hotspot,
-                position: {
-                    x: x * 2,
-                    y: y * 2,
-                },
-                size: {
-                    h: h * 2,
-                    w: w * 2,
-                },
-                connections: [],
-            } as Flow.Layer;
-
-            console.log('setting screen id', newScreenId);
-
-            page.children.push({
+            const screen = {
                 id: newScreenId,
-                name: `${data.tab.title} - ${Date.now()}`,
+                name: `${data.tab.title} - ${cuid.slug()}`,
                 source: {
                     dirPath: settings.assetFolder,
                     fileName: imageName,
                 },
-                children: [hotspot],
+                children: [],
                 size: { ...data.tab.size },
                 position: { ...cumulativePosition },
                 type: Flow.Type.Screen,
-            });
+            } as Flow.Screen;
+
+            if (!data.event || data.event !== null) {
+                screen.children.push({
+                    id: cuid(),
+                    name: null,
+                    type: Flow.Type.Hotspot,
+                    position: {
+                        x: x * 2,
+                        y: y * 2,
+                    },
+                    size: {
+                        h: h * 2,
+                        w: w * 2,
+                    },
+                    connections: [],
+                } as Flow.Layer);
+            }
 
             cumulativePosition.x += data.tab.size.w + settings.screenSpacing;
+            page.children.push(screen);
         });
 
         page.children.forEach((screen: Flow.Screen, i) => {
-            page.children[i + 1] && console.log('looping children', page.children[i + 1].id);
             page.children[i + 1] &&
                 screen.children[0].connections.push({
                     nodeID: page.children[i + 1].id,
                 });
         });
 
+        return struct;
+    }
+
+    public static zipFiles(files: Shot[]) {
+        console.log(`Zipping ${files.length} files`);
+        const zip = new JSZip();
+        const struct = FileManager.buildFile(files);
+
+        zip.folder(FileManager.exportSettings.assetFolder);
         zip.file('data.json', JSON.stringify(struct));
+
+        struct.document.children[0].children.forEach((screen: Flow.Screen, i) => {
+            zip.file(
+                `${(screen.source as Flow.FileAsset).dirPath}/${(screen.source as Flow.FileAsset).fileName}`,
+                Helpers.uriToBlob(files[i].tab.dataURI)
+            );
+        });
 
         zip.generateAsync({ type: 'blob' }).then(blob => {
             const a = document.createElement('a');
@@ -111,4 +114,10 @@ export default class FileManager {
             a.remove();
         });
     }
+
+    private static readonly exportSettings = {
+        assetFolder: 'assets',
+        imageExt: 'png',
+        screenSpacing: 200,
+    };
 }
