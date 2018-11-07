@@ -2,8 +2,9 @@
   "name": "flowshot",
   "version": "1.0.0",
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "yarn run subupdate && ./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
+    "subupdate": "git submodule update --recursive --remote",
     "test": "jest",
     "test:watch": "ava -w"
   },

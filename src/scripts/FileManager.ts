@@ -23,6 +23,8 @@ export default class FileManager {
         files.forEach((data: Shot, i: number) => {
             const newScreenId = Helpers.genId();
             const imageName = `${newScreenId}.png`;
+            const { x, y, w, h } = data.event.payload.boundingRect;
+
             zip.file(`${baseSructure.imageDir}/${imageName}`, Helpers.uriToBlob(data.tab.dataURI));
 
             baseSructure.screens.push({
@@ -37,12 +39,12 @@ export default class FileManager {
                 area: {
                     id: Helpers.genId(),
                     position: {
-                        x: data.event.payload.boundingRect.x * 2,
-                        y: data.event.payload.boundingRect.y * 2,
+                        x: x * 2,
+                        y: y * 2,
                     },
                     size: {
-                        h: data.event.payload.boundingRect.h * 2,
-                        w: data.event.payload.boundingRect.w * 2,
+                        h: h * 2,
+                        w: w * 2,
                     },
                 },
             });
