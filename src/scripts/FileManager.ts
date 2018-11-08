@@ -5,7 +5,7 @@ import { Shot } from '../types/types';
 import Flow from '../../Flow/src/typings/Flow';
 
 export default class FileManager {
-    private static get flowStructure(): Flow.File {
+    public static get flowStructure(): Flow.File {
         return {
             document: {
                 id: cuid(),
