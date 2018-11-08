@@ -21,6 +21,25 @@ module.exports = {
                 use: 'ts-loader',
             },
             {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: { sourceMap: false },
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: { sourceMap: false },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: false,
+                        },
+                    },
+                ],
+            },
+            {
                 test: /\.(png|eot|svg|ttf|woff|woff2)$/,
                 loader: 'file-loader?name=[name].[ext]',
             },
