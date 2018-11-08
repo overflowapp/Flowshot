@@ -34,6 +34,7 @@ export interface Size {
 }
 
 export interface Session {
+    id: string;
     date: number;
     shots: Shot[];
 }

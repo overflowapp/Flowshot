@@ -1,12 +1,12 @@
 export default class EventBus {
     private functionMap = {};
 
-    add(event, func) {
+    public add(event, func) {
         this.functionMap[event] = func;
         document.addEventListener(event.split('.')[0], this.functionMap[event]);
     }
 
-    remove(event) {
+    public remove(event) {
         document.removeEventListener(event.split('.')[0], this.functionMap[event]);
         delete this.functionMap[event];
     }

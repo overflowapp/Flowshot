@@ -1,3 +1,4 @@
+import * as cuid from 'cuid';
 import FileManager from './FileManager';
 import TabHelper from '../utils/TabHelper';
 import { Session, SessionState, TabShot, Shot, ClickData, ChromeTabStatus, RequestType } from '../types/types';
@@ -5,14 +6,15 @@ import { Session, SessionState, TabShot, Shot, ClickData, ChromeTabStatus, Reque
 class Background {
     public static currentSession: Session;
 
-    private static get baseSession(): Session {
+    public static get baseSession(): Session {
         return {
+            id: cuid.slug(),
             date: Date.now(),
             shots: [],
         };
     }
 
-    private static newSession() {
+    public static newSession() {
         console.log('Session created');
         Background.currentSession = Background.baseSession;
     }

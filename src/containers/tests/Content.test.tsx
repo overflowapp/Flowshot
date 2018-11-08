@@ -29,11 +29,6 @@ describe('Content', function() {
         expect((MountedContent.state('screenshots') as []).length).toBe(0);
     });
 
-    it.skip('should update recording state', function() {
-        (MountedContent.instance() as Content).setRecordingState(SessionState.started);
-        expect(MountedContent.state('status')).toBe(SessionState.started);
-    });
-
     it('pass snapshot', function() {
         expect(MountedContent).toMatchSnapshot();
     });

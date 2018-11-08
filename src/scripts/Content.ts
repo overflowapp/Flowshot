@@ -20,7 +20,7 @@ class Content {
         this.runStatus();
     }
 
-    static handleRequest(request: any, sender: chrome.runtime.MessageSender, respond: any) {
+    static handleRequest(request: any, sender: chrome.runtime.MessageSender, response: any) {
         console.log('Handling request', request);
 
         switch (true) {
