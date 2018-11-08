@@ -55,7 +55,8 @@ class Client {
 
     onClick(e: MouseEvent) {
         const path = (e as any).path;
-        const srcElement = path ? path.find(e => ['button', 'a'].includes(e.type)) : e.srcElement;
+        const pathElement = path ? path.find(e => ['button', 'a'].includes(e.type)) : e.srcElement;
+        const srcElement = pathElement || e.srcElement;
         const style = srcElement.getBoundingClientRect();
 
         document.dispatchEvent(

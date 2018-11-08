@@ -4,9 +4,9 @@
   "scripts": {
     "build": "yarn run subupdate && ./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
-    "subupdate": "git submodule update --recursive --remote",
-    "test": "jest",
-    "test:watch": "ava -w"
+    "prepare": "git submodule init && git submodule update",
+    "modules:update": "git submodule update --recursive --remote",
+    "test": "jest"
   },
   "dependencies": {
     "cuid": "^2.1.4",
