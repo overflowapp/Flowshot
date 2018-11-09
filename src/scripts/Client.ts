@@ -45,15 +45,15 @@ class Client {
     }
 
     detachClickListener() {
-        window.FlowshotEvents.remove('click.flowshot');
+        window.FlowshotEvents.remove('mousedown.flowshot');
     }
 
     attachClickListener() {
         this.detachClickListener();
-        window.FlowshotEvents.add('click.flowshot', this.onClick);
+        window.FlowshotEvents.add('mousedown.flowshot', this.onMousedown);
     }
 
-    onClick(e: MouseEvent) {
+    onMousedown(e: MouseEvent) {
         const path = (e as any).path;
         const pathElement = path ? path.find(e => ['button', 'a'].includes(e.type)) : e.srcElement;
         const srcElement = pathElement || e.srcElement;
