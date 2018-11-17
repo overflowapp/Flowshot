@@ -1,6 +1,6 @@
 import * as cuid from 'cuid';
 import FileManager from '../FileManager';
-import Flow from '../../../Flow/src/typings/Flow';
+import Flow, { NODE_TYPE } from 'dotflow';
 import { SHOTS } from '../../tests/fauxData';
 
 describe('File Manager', function() {
@@ -16,8 +16,8 @@ describe('File Manager', function() {
     it('should get a Flow type structure', function() {
         const f1 = FileManager.flowStructure;
 
-        expect(f1.document.type).toBe(Flow.Type.Document);
-        expect(f1.document.children[0].type).toBe(Flow.Type.Page);
+        expect(f1.document.type).toBe(NODE_TYPE.DOCUMENT);
+        expect(f1.document.children[0].type).toBe(NODE_TYPE.PAGE);
     });
 
     it('should retrieve a unique Flow structure each time', function() {
@@ -29,7 +29,7 @@ describe('File Manager', function() {
     });
 
     it('should build a flow file from shots', function() {
-        expect(struct.document.type).toBe(Flow.Type.Document);
+        expect(struct.document.type).toBe(NODE_TYPE.DOCUMENT);
         expect(struct.document.children[0].children.length).toEqual(shotsLength);
     });
 
@@ -51,6 +51,6 @@ describe('File Manager', function() {
 
     it('should have screens with layers that are of type hotspot', function() {
         const screens = struct.document.children[0].children as Flow.Screen[];
-        expect(screens[0].children[0].type).toEqual(Flow.Type.Hotspot);
+        expect(screens[0].children[0].type).toEqual(NODE_TYPE.HOTSPOT);
     });
 });

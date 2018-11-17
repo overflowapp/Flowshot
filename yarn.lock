@@ -1631,6 +1631,13 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
+dotflow@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/dotflow/-/dotflow-1.0.8.tgz#39c96e2f7df186cc4aa5190ff7ca773d87e9aef0"
+  integrity sha512-iWhWLsioy0n38KTNUi8XnwlkNEPqTo6kmbGOoIdFFSCk9GRhb2h3qXaiHg37B/2P7I/3uZ1L9SnwfKsiZb54wg==
+  dependencies:
+    jszip "^3.1.5"
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.6.1"
   resolved "https://registry.npmjs.org/duplexify/-/duplexify-3.6.1.tgz#b1a7a29c4abfd639585efaecce80d666b1e34125"

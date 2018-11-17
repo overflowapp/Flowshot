@@ -2,7 +2,7 @@ import * as JSZip from 'jszip';
 import * as cuid from 'cuid';
 import Helpers from '../utils/Helpers';
 import { Shot } from '../types/types';
-import Flow from '../../Flow/src/typings/Flow';
+import Flow, { NODE_TYPE } from 'dotflow';
 
 export default class FileManager {
     public static get flowStructure(): Flow.File {
@@ -10,12 +10,12 @@ export default class FileManager {
             document: {
                 id: cuid(),
                 name: 'Flowshot',
-                type: Flow.Type.Document,
+                type: NODE_TYPE.DOCUMENT,
                 children: [
                     {
                         id: cuid(),
                         name: `Flow ${cuid.slug()}`,
-                        type: Flow.Type.Page,
+                        type: NODE_TYPE.PAGE,
                         backgroundColor: {
                             r: 0,
                             g: 0,
@@ -50,7 +50,7 @@ export default class FileManager {
                 children: [],
                 size: { ...data.tab.size },
                 position: { ...cumulativePosition },
-                type: Flow.Type.Screen,
+                type: NODE_TYPE.SCREEN,
             } as Flow.Screen;
 
             if (data.event !== null) {
@@ -58,7 +58,7 @@ export default class FileManager {
                 screen.children.push({
                     id: cuid(),
                     name: null,
-                    type: Flow.Type.Hotspot,
+                    type: NODE_TYPE.HOTSPOT,
                     position: {
                         x: x * 2,
                         y: y * 2,

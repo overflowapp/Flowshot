@@ -4,12 +4,11 @@
   "scripts": {
     "build": "yarn run subupdate && ./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack -w",
-    "prepare": "git submodule init && git submodule update",
-    "modules:update": "git submodule update --recursive --remote",
     "test": "jest"
   },
   "dependencies": {
     "cuid": "^2.1.4",
+    "dotflow": "^1.0.8",
     "jszip": "^3.1.5",
     "react": "^16.6.0",
     "react-dom": "^16.6.0"
