@@ -29,7 +29,7 @@
     "enzyme-adapter-react-16": "^1.6.0",
     "enzyme-to-json": "^3.3.4",
     "jest": "^23.6.0",
-    "node-sass": "^4.10.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0",
     "sinon-chrome": "^2.3.2",
     "style-loader": "^0.23.1",
